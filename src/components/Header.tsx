@@ -1,11 +1,28 @@
-import { NavLink } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import { cn } from "../lib/utils";
 import Container from "./Container";
 import LogoContainer from "./LogoContainer";
 import NavigationRoutes from "./NavigationRoutes";
 import ToggleContainer from "./ToggleContainer";
+import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
+import { useSelector } from "react-redux";
+import { RootState } from "../app/store";
+import { Button } from "./ui/button";
+import { User } from "lucide-react";
+import axiosInstance from "../lib/axiosInstance";
 
 const Header = () => {
+  const imageLink = useSelector((state: RootState) => state.auth.image);
+
+  const handleLogout = () => {
+    axiosInstance
+      .post(`/logout`)
+      .then(() => {
+        location.replace("/");
+      })
+      .catch((err) => console.log(err));
+  };
+
   return (
     <div
       className={cn("w-full border-b duration-150 transition-all ease-in-out")}
@@ -31,6 +48,24 @@ const Header = () => {
           </nav>
           <div>
             <ToggleContainer />
+          </div>
+          <div>
+            {imageLink ? (
+              <div className="flex items-center gap-4">
+                <Avatar>
+                  <AvatarImage src={imageLink} alt="user" />
+                  <AvatarFallback>CN</AvatarFallback>
+                </Avatar>
+                <Button onClick={handleLogout}>Logout</Button>
+              </div>
+            ) : (
+              <Button asChild>
+                <Link to="/login">
+                  <User />
+                  Login
+                </Link>
+              </Button>
+            )}
           </div>
         </div>
       </Container>
