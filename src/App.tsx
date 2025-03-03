@@ -6,6 +6,7 @@ import Dashboard from "./routes/Dashboard";
 import CreateEditPage from "./routes/CreateEditPage";
 import Login from "./routes/Login";
 import Register from "./routes/Register";
+import ProtectedRoutes from "./layout/ProtectedRoutes";
 
 function App() {
   return (
@@ -17,8 +18,15 @@ function App() {
 
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
-        
-        <Route element={<Generate />} path="/generate">
+
+        <Route
+          element={
+            <ProtectedRoutes>
+              <Generate />
+            </ProtectedRoutes>
+          }
+          path="/generate"
+        >
           <Route index element={<Dashboard />} />
           <Route path=":interviewId" element={<CreateEditPage />} />
         </Route>

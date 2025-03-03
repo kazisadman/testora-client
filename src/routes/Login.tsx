@@ -4,7 +4,7 @@ import Heading from "../components/Heading";
 import { Input } from "../components/ui/input";
 import { Label } from "../components/ui/label";
 import { Button } from "../components/ui/button";
-import { Link } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
 import axiosInstance from "../lib/axiosInstance";
 
 const Login = () => {
@@ -31,7 +31,7 @@ const Login = () => {
           },
         })
         .then(() => {
-          location.replace("/");
+          <Navigate to={"/"} replace />;
         })
         .catch((err) => {
           if (err.response.status === 404) {
