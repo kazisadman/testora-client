@@ -12,7 +12,7 @@ const Register = () => {
   const [error, setError] = useState<string>("");
   const [name, setName] = useState<string>("");
 
-  const imageKey = import.meta.env.VITE_IMAGEBB_KEY;
+  const imageKey = import.meta.env.VITE_IMAGEBB_KEY!;
 
   const handleNameInput = (e: React.ChangeEvent<HTMLInputElement>) => {
     setName(e.target.value);

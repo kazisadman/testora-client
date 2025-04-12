@@ -2,12 +2,14 @@
 // import { useParams } from "react-router-dom";
 // import { TInterview } from "../types";
 
+import FormMockInterview from "../components/FormMockInterview";
+
 const CreateEditPage = () => {
-//   const { interviewId } = useParams<{ interviewId: string }>();
-//   const [interview, setInterview] = useState<TInterview | null>(null);
+  //   const { interviewId } = useParams<{ interviewId: string }>();
+  //   const [interview, setInterview] = useState<TInterview | null>(null);
   return (
     <div>
-      <h1>This is CreateEditPage</h1>
+      <FormMockInterview />
     </div>
   );
 };

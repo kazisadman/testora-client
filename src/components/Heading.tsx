@@ -11,7 +11,7 @@ const Heading = ({ title, description, isSubheading }: THeading) => {
     <div>
       <h2
         className={cn(
-          "text-2xl md:text-3xl text-gray-800 font-semibold",
+          "text-2xl md:text-4xl text-gray-800 font-bold",
           isSubheading && "text-lg md:text-xl"
         )}
       >

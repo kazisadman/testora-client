@@ -4,14 +4,14 @@ interface AuthState {
   email: string;
   image: string;
   name: string;
-  id: string;
+  _id: string;
 }
 
 const initialState: AuthState = {
   email: "",
   image: "",
   name: "",
-  id: "",
+  _id: "",
 };
 
 export const authSlice = createSlice({
@@ -24,13 +24,13 @@ export const authSlice = createSlice({
         email: string;
         image: string;
         name: string;
-        id: string;
+        _id: string;
       }>
     ) => {
       state.email = actions.payload.email;
       state.image = actions.payload.image;
       state.name = actions.payload.name;
-      state.id = actions.payload.id;
+      state._id = actions.payload._id;
     },
   },
 });

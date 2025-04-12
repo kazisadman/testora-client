@@ -1,6 +1,6 @@
 export interface TInterview {
-  id: string;
-  position: string;
+  _id: string;
+  title: string;
   description: string;
   userId: string;
   techStack: string;
@@ -8,5 +8,20 @@ export interface TInterview {
     question: string;
     answer: string;
   }[];
-  experienc: number;
+  experience: number;
+}
+
+export interface TInterviewPin {
+  interviews: {
+    _id: string;
+    title: string;
+    description: string;
+    userId: string;
+    techStack: string;
+    questions: {
+      question: string;
+      answer: string;
+    }[];
+    experience: number;
+  };
 }

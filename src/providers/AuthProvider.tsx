@@ -15,9 +15,9 @@ const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     axiosInstance
       .get("/check-auth")
       .then((data) => {
-        const { name, email, id, image } = data.data.data;
+        const { name, email, _id, image } = data.data.data;
 
-        dispatch(login({ email, image, name, id }));
+        dispatch(login({ email, image, name, _id }));
       })
       .catch((err) => console.log(err))
       .finally(() => setIsLoading(false));

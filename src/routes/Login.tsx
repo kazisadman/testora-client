@@ -4,11 +4,12 @@ import Heading from "../components/Heading";
 import { Input } from "../components/ui/input";
 import { Label } from "../components/ui/label";
 import { Button } from "../components/ui/button";
-import { Link, Navigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import axiosInstance from "../lib/axiosInstance";
 
 const Login = () => {
   const [error, setError] = useState<string>("");
+  const navigate = useNavigate();
 
   const handleLogin = (e: React.FocusEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -31,7 +32,7 @@ const Login = () => {
           },
         })
         .then(() => {
-          <Navigate to={"/"} replace />;
+          navigate("/", { replace: true });
         })
         .catch((err) => {
           if (err.response.status === 404) {
