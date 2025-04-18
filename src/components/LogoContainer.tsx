@@ -1,9 +1,9 @@
 import { Link } from "react-router-dom";
-
+import logo from "/logo_full_bg.png";
 const LogoContainer = () => {
   return (
     <Link to={"/"}>
-      <h1 className="text-3xl font-bold">TESTORA</h1>
+<img src={logo} alt="logo" className="w-40"/>
     </Link>
   );
 };

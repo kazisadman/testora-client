@@ -1,5 +1,8 @@
+import { useState } from "react";
 import { cn } from "../lib/utils";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "./ui/tabs";
+import { Volume2, VolumeX } from "lucide-react";
+import TooltipButton from "./TooltipButton";
 
 interface TQuestions {
   questions: {
@@ -9,6 +12,31 @@ interface TQuestions {
 }
 
 const QuestionSection = ({ questions }: TQuestions) => {
+  const [isPlaying, setIsPlaying] = useState(false);
+  // const [isWebCam, setIsWebcam] = useState(false);
+  const [currentSpeech, setCurrentSpeech] =
+    useState<SpeechSynthesisUtterance | null>(null);
+
+  const handlePlayQuestion = (qst: string) => {
+    if (isPlaying && currentSpeech) {
+      window.speechSynthesis.cancel();
+      setIsPlaying(false);
+      setCurrentSpeech(null);
+    } else {
+      if ("speechSynthesis" in window) {
+        const speech = new SpeechSynthesisUtterance(qst);
+        window.speechSynthesis.speak(speech);
+        setIsPlaying(true);
+        setCurrentSpeech(speech);
+
+        speech.onend = () => {
+          setIsPlaying(false);
+          setCurrentSpeech(null);
+        };
+      }
+    }
+  };
+
   return (
     <div className="w-full min-h-96 border-md p-4">
       <Tabs
@@ -32,6 +60,19 @@ const QuestionSection = ({ questions }: TQuestions) => {
             <p className="text-base text-left tracking-wide text-neutral-500">
               {question.question}
             </p>
+            <div className="flex justify-end w-full">
+              <TooltipButton
+                content={isPlaying ? "Stop" : "Start"}
+                icon={
+                  isPlaying ? (
+                    <VolumeX className="min-w-5 min-h-5" />
+                  ) : (
+                    <Volume2 className="min-w-5 min-h-5" />
+                  )
+                }
+                onclick={() => handlePlayQuestion(question.question)}
+              />
+            </div>
           </TabsContent>
         ))}
       </Tabs>
