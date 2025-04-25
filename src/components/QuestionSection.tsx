@@ -3,6 +3,7 @@ import { cn } from "../lib/utils";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "./ui/tabs";
 import { Volume2, VolumeX } from "lucide-react";
 import TooltipButton from "./TooltipButton";
+import RecordAnswer from "./RecordAnswer";
 
 interface TQuestions {
   questions: {
@@ -13,7 +14,7 @@ interface TQuestions {
 
 const QuestionSection = ({ questions }: TQuestions) => {
   const [isPlaying, setIsPlaying] = useState(false);
-  // const [isWebCam, setIsWebcam] = useState(false);
+  const [isWebCam, setIsWebCam] = useState(false);
   const [currentSpeech, setCurrentSpeech] =
     useState<SpeechSynthesisUtterance | null>(null);
 
@@ -41,7 +42,7 @@ const QuestionSection = ({ questions }: TQuestions) => {
     <div className="w-full min-h-96 border-md p-4">
       <Tabs
         defaultValue={questions[0]?.question}
-        className="w-full space-y-12"
+        className="w-full space-y-12 border-2 p-1 rounded-lg"
         orientation="vertical"
       >
         <TabsList className="bg-transparent w-full flex flex-wrap items-center justify-start gap-4">
@@ -73,6 +74,11 @@ const QuestionSection = ({ questions }: TQuestions) => {
                 onclick={() => handlePlayQuestion(question.question)}
               />
             </div>
+            <RecordAnswer
+              question={question}
+              isWebCam={isWebCam}
+              setIsWebCam={setIsWebCam}
+            />
           </TabsContent>
         ))}
       </Tabs>

@@ -6,9 +6,15 @@ import { Label } from "../components/ui/label";
 import { Button } from "../components/ui/button";
 import { Link, useNavigate } from "react-router-dom";
 import axiosInstance from "../lib/axiosInstance";
+import { Loader2 } from "lucide-react";
+import { useDispatch } from "react-redux";
+import { login } from "../app/features/authSlice";
 
 const Login = () => {
   const [error, setError] = useState<string>("");
+  const [loading, setLoading] = useState<boolean>(false);
+  const dispatch = useDispatch();
+
   const navigate = useNavigate();
 
   const handleLogin = (e: React.FocusEvent<HTMLFormElement>) => {
@@ -21,6 +27,7 @@ const Login = () => {
       email,
       password,
     };
+    setLoading(true);
 
     if (password.length < 6) {
       setError("Password should be ateast 6 characters");
@@ -31,7 +38,9 @@ const Login = () => {
             withCredentials: true,
           },
         })
-        .then(() => {
+        .then((data) => {
+          dispatch(login(data.data?.data));
+          setLoading(false);
           navigate("/", { replace: true });
         })
         .catch((err) => {
@@ -65,9 +74,16 @@ const Login = () => {
               <Label htmlFor="password">Password</Label>
               <Input type="password" name="password" placeholder="Password" />
             </div>
-            <Button type="submit" className="w-full">
-              Submit
-            </Button>
+            {loading ? (
+              <Button className="w-full" disabled>
+                <Loader2 className="animate-spin" />
+                Please wait
+              </Button>
+            ) : (
+              <Button type="submit" className="w-full">
+                Submit
+              </Button>
+            )}
           </div>
           <div className="mt-2">
             <p>

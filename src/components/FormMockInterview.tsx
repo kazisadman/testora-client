@@ -63,7 +63,7 @@ const FormMockInterview = () => {
     <div className="flex-col w-full space-y-4">
       <div className="flex justify-between items-center mt-4 w-full">
         <Heading title="Create A New Interview" isSubheading />
-        <Button size={"icon"} variant={"ghost"}>
+        <Button size={"icon"} variant={"ghost"} disabled>
           <Trash2 className="min-w-4 min-h-4 text-red-500" />
         </Button>
       </div>

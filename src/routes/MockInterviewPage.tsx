@@ -36,7 +36,7 @@ const MockInterviewPage = () => {
             responses with the ideal answers.
             <br />
             <br />
-            <strong>Note:</strong>{" "}
+            <strong>Note:</strong>
             <span className="font-medium">Your video is never recorded.</span>
             You can disable the webcam anytime if preferred.
           </AlertDescription>

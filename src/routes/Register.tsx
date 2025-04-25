@@ -4,13 +4,19 @@ import Heading from "../components/Heading";
 import { Button } from "../components/ui/button";
 import { Input } from "../components/ui/input";
 import { Label } from "../components/ui/label";
-import { Link, Navigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import axiosInstance from "../lib/axiosInstance";
+import { Loader2 } from "lucide-react";
+import { useDispatch } from "react-redux";
+import { login } from "../app/features/authSlice";
 
 const Register = () => {
   const [error, setError] = useState<string>("");
   const [name, setName] = useState<string>("");
+  const [loading, setLoading] = useState<boolean>(false);
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const imageKey = import.meta.env.VITE_IMAGEBB_KEY!;
 
@@ -21,6 +27,7 @@ const Register = () => {
   const handleRegister = (e: React.FocusEvent<HTMLFormElement>) => {
     e.preventDefault();
     setError("");
+    setLoading(true);
 
     const form = e.target;
 
@@ -53,8 +60,12 @@ const Register = () => {
 
           axiosInstance
             .post(`/register`, userData)
-            .then(() => {
-              <Navigate to={'/'} replace/>
+            .then((data) => {
+              dispatch(login(data.data?.data));
+
+              setLoading(false);
+
+              navigate("/", { replace: true });
             })
             .catch((err) => {
               if (err.response.status === 409) {
@@ -103,9 +114,16 @@ const Register = () => {
               <Label htmlFor="avatar">Avatar</Label>
               <Input className="cursor-pointer" name="avatar" type="file" />
             </div>
-            <Button type="submit" className="w-full">
-              Submit
-            </Button>
+            {loading ? (
+              <Button className="w-full" disabled>
+                <Loader2 className="animate-spin" />
+                Please wait
+              </Button>
+            ) : (
+              <Button type="submit" className="w-full">
+                Submit
+              </Button>
+            )}
           </div>
           <div className="mt-2">
             <p>

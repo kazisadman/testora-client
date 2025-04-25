@@ -44,20 +44,21 @@ const TooltipButton = ({
         <TooltipTrigger
           className={disabled ? "cursor-not-allowed" : "cursor-pointer"}
         >
-          <Button
-            size={"icon"}
-            disabled={disabled}
-            variant={buttonVarient}
-            className={buttonClassName}
-            onClick={onclick}
-          >
-            {loading ? (
-              <Loader className="min-w-4 min-h-4 animate-spin text-emerald-400" />
-            ) : (
-              icon
-            )}
-          </Button>
         </TooltipTrigger>
+
+        <Button
+          size={"icon"}
+          disabled={disabled}
+          variant={buttonVarient}
+          className={buttonClassName}
+          onClick={onclick}
+        >
+          {loading ? (
+            <Loader className="min-w-4 min-h-4 animate-spin text-emerald-400" />
+          ) : (
+            icon
+          )}
+        </Button>
         <TooltipContent>
           <p>{loading ? "Loading..." : content}</p>
         </TooltipContent>
